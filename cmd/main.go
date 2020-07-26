@@ -3,14 +3,17 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-const token = ""
-
 func main() {
-	bot, err := tgbotapi.NewBotAPI(token)
+	botToken, exist := os.LookupEnv("BOT_TOKEN")
+	if !exist {
+		log.Panic("Doesn't found bot token")
+	}
+	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
 		log.Panic(err)
 	}
